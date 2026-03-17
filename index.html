@@ -99,6 +99,12 @@
     .error-banner { display: none; background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 10px 14px; margin-top: 16px; font-size: 13px; color: #b91c1c; }
     .error-banner.show { display: block; }
 
+    .input-suffix-wrap { display: flex; align-items: center; border: 1px solid #d1d5db; border-radius: 8px; overflow: hidden; transition: border 0.15s, box-shadow 0.15s; }
+    .input-suffix-wrap:focus-within { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
+    .input-suffix-wrap.error { border-color: #ef4444; background: #fef2f2; }
+    .input-suffix-wrap input { border: none; border-radius: 0; box-shadow: none; flex: 1; min-width: 0; }
+    .input-suffix-wrap input:focus { border: none; box-shadow: none; }
+    .input-suffix { padding: 9px 12px; font-size: 14px; color: #6b7280; background: #f9fafb; border-left: 1px solid #d1d5db; white-space: nowrap; }
     .step { display: none; }
     .step.active { display: block; }
   </style>
@@ -134,6 +140,15 @@
 
     <!-- STEP 1 -->
     <div class="step active" id="step1">
+      <div class="field">
+        <label>Agente que hace la solicitud <span class="req">*</span></label>
+        <div class="input-suffix-wrap" id="agente-wrap">
+          <input type="text" id="agente" placeholder="nombre.apellido"/>
+          <span class="input-suffix">@huli.io</span>
+        </div>
+        <div class="error-msg" id="err-agente">Campo obligatorio</div>
+      </div>
+
       <div class="field">
         <label>Tipo de importación <span class="req">*</span></label>
         <select id="tipo">
@@ -273,14 +288,15 @@
 
   function goStep2() {
     let valid = true;
-    [["tipo", "err-tipo"], ["doc_firmado", "err-doc"], ["link_spreadsheet", "err-spreadsheet"], ["comentarios", "err-comentarios"]].forEach(([id, errId]) => {
+    [["agente", "err-agente"], ["tipo", "err-tipo"], ["doc_firmado", "err-doc"], ["link_spreadsheet", "err-spreadsheet"], ["comentarios", "err-comentarios"]].forEach(([id, errId]) => {
       const el = document.getElementById(id);
+      const wrap = document.getElementById(id + "-wrap");
       if (!el.value.trim()) {
-        el.classList.add("error");
+        (wrap || el).classList.add("error");
         document.getElementById(errId).classList.add("show");
         valid = false;
       } else {
-        el.classList.remove("error");
+        (wrap || el).classList.remove("error");
         document.getElementById(errId).classList.remove("show");
       }
     });
@@ -336,6 +352,7 @@
     btn.textContent = "Enviando...";
     document.getElementById("err-banner").classList.remove("show");
 
+    const agente = document.getElementById("agente").value.trim() + "@huli.io";
     const tipo = document.getElementById("tipo").value;
     const doc_firmado = document.getElementById("doc_firmado").value.trim();
     const link_spreadsheet = document.getElementById("link_spreadsheet").value.trim();
@@ -345,6 +362,7 @@
     const { data: tablaData, tableWiki } = collectTableData();
 
     const payload = {
+      agente,
       tipo,
       doc_firmado,
       link_spreadsheet,
@@ -355,6 +373,7 @@
       tabla_wiki: tableWiki,
       jira_summary: `[${tipo}] - ${tablaData.map(r => r.cons_migrar).filter(Boolean).join(', ')}`,
       jira_description:
+        `*Agente:* ${agente}\n` +
         `*Tipo de importación:* ${tipo}\n` +
         `*Fecha:* ${fecha}\n` +
         `*Documento firmado:* [Ver documento|${doc_firmado}]\n` +
@@ -389,6 +408,7 @@
   function resetForm() {
     document.getElementById("success").classList.remove("show");
     document.getElementById("step1").classList.add("active");
+    document.getElementById("agente").value = "";
     document.getElementById("tipo").value = "";
     document.getElementById("doc_firmado").value = "";
     document.getElementById("link_spreadsheet").value = "";
