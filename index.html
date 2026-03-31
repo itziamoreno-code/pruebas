@@ -7,19 +7,16 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f3f4f6; min-height: 100vh; padding: 32px 16px; color: #111827; }
-    .container { max-width: 900px; margin: 0 auto; }
+    .container { max-width: 1100px; margin: 0 auto; }
 
-    /* Header */
     .header { margin-bottom: 24px; }
     .steps { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #9ca3af; margin-bottom: 8px; }
     .steps .active { color: #7c3aed; font-weight: 700; }
     h1 { font-size: 24px; font-weight: 800; color: #111827; }
     .subtitle { font-size: 14px; color: #6b7280; margin-top: 4px; }
 
-    /* Card */
     .card { background: #fff; border-radius: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); border: 1px solid #e5e7eb; padding: 28px; }
 
-    /* Form fields */
     .field { margin-bottom: 20px; }
     label { display: block; font-size: 13px; font-weight: 700; color: #374151; margin-bottom: 4px; }
     .hint { font-size: 11px; color: #9ca3af; margin-bottom: 6px; }
@@ -40,24 +37,30 @@
     textarea { resize: vertical; min-height: 80px; }
     select { background: #fff; cursor: pointer; }
 
-    /* Divider */
-    .divider { border: none; border-top: 1px solid #f3f4f6; margin: 24px 0; }
-
-    /* Table section */
     .table-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
     .table-header h2 { font-size: 15px; font-weight: 700; color: #111827; }
     .table-header p { font-size: 12px; color: #9ca3af; margin-top: 2px; }
     .btn-add-top { background: #fff; border: 1px solid #7c3aed; color: #7c3aed; border-radius: 8px; padding: 7px 14px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
     .btn-add-top:hover { background: #f5f3ff; }
 
-    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid #e5e7eb; }
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid #e5e7eb; width: 100%; }
+    table { width: 100%; min-width: 1021px; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+    table colgroup col:nth-child(1) { width: 130px; }
+    table colgroup col:nth-child(2) { width: 155px; }
+    table colgroup col:nth-child(3) { width: 90px; }
+    table colgroup col:nth-child(4) { width: 90px; }
+    table colgroup col:nth-child(5) { width: 140px; }
+    table colgroup col:nth-child(6) { width: 140px; }
+    table colgroup col:nth-child(7) { width: 145px; }
+    table colgroup col:nth-child(8) { width: 140px; }
+    table colgroup col:nth-child(9) { width: 155px; }
+    table colgroup col:nth-child(10) { width: 36px; }
     thead tr { background: #f9fafb; }
     th { text-align: left; padding: 10px 12px; font-size: 11px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid #e5e7eb; white-space: nowrap; }
     td { border-bottom: 1px solid #f3f4f6; padding: 6px 6px; }
     tr:last-child td { border-bottom: none; }
     tr:nth-child(even) { background: #fafafa; }
-    td input { border: 1px solid transparent; border-radius: 6px; padding: 6px 8px; font-size: 13px; width: 100%; min-width: 80px; background: transparent; transition: border 0.15s, background 0.15s; }
+    td input { border: 1px solid transparent; border-radius: 6px; padding: 6px 8px; font-size: 13px; width: 100%; background: transparent; transition: border 0.15s, background 0.15s; }
     td input:focus { border-color: #7c3aed; background: #f5f3ff; outline: none; }
     .td-remove { width: 36px; text-align: center; }
     .btn-remove { background: none; border: none; color: #d1d5db; font-size: 18px; cursor: pointer; line-height: 1; padding: 4px; border-radius: 4px; transition: color 0.15s; }
@@ -70,19 +73,18 @@
     .table-error { color: #ef4444; font-size: 12px; margin-top: 6px; display: none; }
     .table-error.show { display: block; }
 
-    /* Warning */
     .warning { background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 10px 14px; display: flex; gap: 8px; align-items: flex-start; margin-top: 20px; }
     .warning span { font-size: 16px; }
     .warning p { font-size: 12px; color: #92400e; }
 
-    /* Buttons */
     .actions { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; }
     .btn-back { background: #fff; border: 1px solid #e5e7eb; color: #6b7280; border-radius: 8px; padding: 9px 18px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
     .btn-back:hover { background: #f9fafb; }
     .btn-next, .btn-submit { background: #7c3aed; border: none; color: #fff; border-radius: 8px; padding: 9px 22px; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.15s; }
-    .btn-next:hover, .btn-submit:hover { background: #6d28d9; }
+    .btn-next:hover { background: #6d28d9; }
+    .btn-submit:hover:not(:disabled) { background: #6d28d9; }
+    .btn-submit:disabled { background: #a78bfa; cursor: not-allowed; }
 
-    /* Success */
     .success { display: none; text-align: center; padding: 48px 24px; }
     .success.show { display: block; }
     .success-icon { font-size: 56px; margin-bottom: 16px; }
@@ -94,7 +96,16 @@
     .ticket-badge .meta { font-size: 12px; color: #6b7280; margin-top: 4px; }
     .btn-reset { background: none; border: none; color: #7c3aed; font-size: 13px; text-decoration: underline; cursor: pointer; }
 
-    /* Steps hidden */
+    .error-banner { display: none; background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 10px 14px; margin-top: 16px; font-size: 13px; color: #b91c1c; }
+    .error-banner.show { display: block; }
+
+    .input-suffix-wrap { display: flex; align-items: center; border: 1px solid #d1d5db; border-radius: 8px; overflow: hidden; transition: border 0.15s, box-shadow 0.15s; max-width: 50%; }
+    .input-suffix-wrap:focus-within { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
+    .input-suffix-wrap.error { border-color: #ef4444; background: #fef2f2; }
+    .input-suffix-wrap input { border: none; border-radius: 0; box-shadow: none; flex: 1; min-width: 0; }
+    .input-suffix-wrap input:focus { border: none; box-shadow: none; }
+    .input-suffix { padding: 9px 12px; font-size: 14px; color: #6b7280; background: #f9fafb; border-left: 1px solid #d1d5db; white-space: nowrap; }
+
     .step { display: none; }
     .step.active { display: block; }
   </style>
@@ -120,7 +131,7 @@
       <p>Tu ticket fue creado en Jira exitosamente.</p>
       <div class="ticket-badge">
         <div class="label">Ticket generado</div>
-        <div class="number">IM-32</div>
+        <div class="number" id="success-ticket-key">—</div>
         <div class="meta" id="success-meta"></div>
       </div>
       <br/>
@@ -131,8 +142,17 @@
     <!-- STEP 1 -->
     <div class="step active" id="step1">
       <div class="field">
+        <label>Agente que hace la solicitud <span class="req">*</span></label>
+        <div class="input-suffix-wrap" id="agente-wrap">
+          <input type="text" id="agente" placeholder="nombre.apellido"/>
+          <span class="input-suffix">@huli.io</span>
+        </div>
+        <div class="error-msg" id="err-agente">Campo obligatorio</div>
+      </div>
+
+      <div class="field">
         <label>Tipo de importación <span class="req">*</span></label>
-        <select id="tipo" class="">
+        <select id="tipo">
           <option value="">Selecciona una opción</option>
           <option>Migración de consultorio</option>
           <option>Migración de doctor</option>
@@ -143,10 +163,19 @@
       </div>
 
       <div class="field">
-        <label>Link documento firmado (Google Drive) <span class="req">*</span></label>
-        <div class="hint">Sube el PDF, imagen o .docx a Google Drive y pega el link aquí</div>
-        <input type="text" id="doc_firmado" placeholder="https://drive.google.com/..."/>
-        <div class="error-msg" id="err-doc">Campo obligatorio</div>
+        <label>Documento firmado <span class="req">*</span></label>
+        <div class="hint">Sube el PDF, imagen o .docx a la carpeta de Drive antes de continuar</div>
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 4px;">
+          <a href="https://drive.google.com/drive/folders/1gnqx5gHW7sqPzw0l1YTKhP6A8-R6BSXk" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 1px solid #7c3aed; color: #7c3aed; border-radius: 8px; padding: 8px 16px; font-size: 13px; font-weight: 600; text-decoration: none;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Abrir carpeta en Drive
+          </a>
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 400; color: #374151; cursor: pointer; margin: 0;">
+            <input type="checkbox" id="doc_confirmado" style="width: 16px; height: 16px; accent-color: #7c3aed; cursor: pointer;"/>
+            Ya subí el documento
+          </label>
+        </div>
+        <div class="error-msg" id="err-doc">Confirma que subiste el documento</div>
       </div>
 
       <div class="field">
@@ -179,15 +208,19 @@
 
       <div class="table-wrap">
         <table>
+          <colgroup><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/></colgroup>
           <thead>
             <tr>
-              <th>Org ID</th>
+              <th>ID Organización Fuente</th>
+              <th>ID Owner Organización Fuente</th>
               <th>ID User</th>
               <th>Doctor</th>
-              <th>ID Consultorio Abierto</th>
-              <th>Consultorio a Migrar</th>
-              <th>ID Consultorio a Migrar</th>
-              <th>Org ID a Migrar</th>
+              <th>ID Consultorio Fuente</th>
+              <th>Consultorio Fuente</th>
+              <th>ID Consultorio Destino</th>
+              <th>Consultorio Destino</th>
+              <th>ID Organización Destino</th>
+              <th>ID Owner Organización Destino</th>
               <th></th>
             </tr>
           </thead>
@@ -206,9 +239,13 @@
         <p>No olvide asociar los doctores al ORG destino</p>
       </div>
 
+      <div class="error-banner" id="err-banner">
+        Hubo un error al enviar la solicitud. Por favor intenta de nuevo.
+      </div>
+
       <div class="actions">
         <button class="btn-back" onclick="goStep1()">← Regresar</button>
-        <button class="btn-submit" onclick="submitForm()">Enviar solicitud</button>
+        <button class="btn-submit" id="btn-submit" onclick="submitForm()">Enviar solicitud</button>
       </div>
     </div>
 
@@ -216,6 +253,8 @@
 </div>
 
 <script>
+  const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/813823/uxc97vz";
+
   let rowCount = 0;
 
   function addRow() {
@@ -223,8 +262,8 @@
     const tbody = document.getElementById("tabla-body");
     const tr = document.createElement("tr");
     tr.id = "row-" + rowCount;
-    const cols = ["org_id","id_user","doctor","id_cons_abierto","cons_migrar","id_cons_migrar","org_id_migrar"];
-    const placeholders = ["98617","92340","José Torres","40743","Clínica X","46019","111426"];
+    const cols = ["id_org_fuente","id_owner_org_fuente","id_user","doctor","id_cons_fuente","cons_fuente","id_cons_destino","cons_destino","id_org_destino","id_owner_org_destino"];
+    const placeholders = ["####","####","####","Dr. Xxxx","####","Clínica X","####","Clínica X","####","####"];
     let html = "";
     cols.forEach((c, i) => {
       html += `<td><input type="text" name="${c}_${rowCount}" placeholder="${placeholders[i]}"/></td>`;
@@ -250,22 +289,25 @@
 
   function goStep2() {
     let valid = true;
-    const tipo = document.getElementById("tipo");
-    const doc = document.getElementById("doc_firmado");
-    const com = document.getElementById("comentarios");
-
-    [["tipo", "err-tipo"], ["doc_firmado", "err-doc"], ["comentarios", "err-comentarios"]].forEach(([id, errId]) => {
+    [["agente","err-agente"],["tipo","err-tipo"],["comentarios","err-comentarios"]].forEach(([id, errId]) => {
       const el = document.getElementById(id);
+      const wrap = document.getElementById(id + "-wrap");
       if (!el.value.trim()) {
-        el.classList.add("error");
+        (wrap || el).classList.add("error");
         document.getElementById(errId).classList.add("show");
         valid = false;
       } else {
-        el.classList.remove("error");
+        (wrap || el).classList.remove("error");
         document.getElementById(errId).classList.remove("show");
       }
     });
-
+    const docCheck = document.getElementById("doc_confirmado");
+    if (!docCheck.checked) {
+      document.getElementById("err-doc").classList.add("show");
+      valid = false;
+    } else {
+      document.getElementById("err-doc").classList.remove("show");
+    }
     if (!valid) return;
     document.getElementById("step1").classList.remove("active");
     document.getElementById("step2").classList.add("active");
@@ -280,28 +322,82 @@
     document.getElementById("step-label-1").classList.add("active");
   }
 
-  function submitForm() {
+  function collectTableData() {
+    const rows = document.querySelectorAll("#tabla-body tr");
+    const cols = ["id_org_fuente","id_owner_org_fuente","id_user","doctor","id_cons_fuente","cons_fuente","id_cons_destino","cons_destino","id_org_destino","id_owner_org_destino"];
+    const colHeaders = ["ID Organización Fuente","ID Owner Organización Fuente","ID User","Doctor","ID Consultorio Fuente","Consultorio Fuente","ID Consultorio Destino","Consultorio Destino","ID Organización Destino","ID Owner Organización Destino"];
+    const data = [];
+    rows.forEach(row => {
+      const inputs = row.querySelectorAll("input");
+      const rowObj = {};
+      cols.forEach((c, i) => { rowObj[c] = inputs[i] ? inputs[i].value.trim() : ""; });
+      data.push(rowObj);
+    });
+    let tableWiki = "|| " + colHeaders.join(" || ") + " ||\n";
+    data.forEach(r => {
+      tableWiki += "| " + cols.map(c => r[c] || " ").join(" | ") + " |\n";
+    });
+    return { data, tableWiki };
+  }
+
+  async function submitForm() {
     const rows = document.querySelectorAll("#tabla-body tr");
     let hasData = false;
-    rows.forEach(r => {
-      r.querySelectorAll("input").forEach(i => { if (i.value.trim()) hasData = true; });
-    });
-    if (!hasData) {
-      document.getElementById("err-tabla").classList.add("show");
-      return;
-    }
+    rows.forEach(r => { r.querySelectorAll("input").forEach(i => { if (i.value.trim()) hasData = true; }); });
+    if (!hasData) { document.getElementById("err-tabla").classList.add("show"); return; }
+
+    const btn = document.getElementById("btn-submit");
+    btn.disabled = true;
+    btn.textContent = "Enviando...";
+    document.getElementById("err-banner").classList.remove("show");
+
+    const agente = document.getElementById("agente").value.trim() + "@huli.io";
     const tipo = document.getElementById("tipo").value;
-    const n = document.querySelectorAll("#tabla-body tr").length;
-    document.getElementById("success-meta").textContent = tipo + " · " + new Date().toLocaleDateString("es-MX") + " · " + n + " fila" + (n !== 1 ? "s" : "");
-    document.getElementById("step2").classList.remove("active");
-    document.getElementById("success").classList.add("show");
+    const doc_firmado = "https://drive.google.com/drive/folders/1gnqx5gHW7sqPzw0l1YTKhP6A8-R6BSXk";
+    const link_adicional = document.getElementById("link_adicional").value.trim();
+    const comentarios = document.getElementById("comentarios").value.trim();
+    const fecha = new Date().toLocaleDateString("es-MX");
+    const { data: tablaData, tableWiki } = collectTableData();
+
+    const payload = {
+      agente, tipo, doc_firmado, link_adicional, comentarios, fecha,
+      tabla_rows: tablaData,
+      tabla_wiki: tableWiki,
+      jira_summary: `[${tipo}] - ${tablaData.map(r => r.cons_migrar).filter(Boolean).join(", ")}`,
+      jira_description:
+        `*Agente:* ${agente}\n` +
+        `*Tipo de importación:* ${tipo}\n` +
+        `*Fecha:* ${fecha}\n` +
+        `*Documento firmado:* [Ver documento|${doc_firmado}]\n` +
+        (link_adicional ? `*Link adicional:* [Ver|${link_adicional}]\n` : "") +
+        `\n*Comentarios:*\n${comentarios}\n\n` +
+        `*Tabla de datos:*\n${tableWiki}`
+    };
+
+    try {
+      await fetch(ZAPIER_WEBHOOK_URL, {
+        method: "POST", mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const n = rows.length;
+      document.getElementById("success-meta").textContent = tipo + " · " + fecha + " · " + n + " fila" + (n !== 1 ? "s" : "");
+      document.getElementById("step2").classList.remove("active");
+      document.getElementById("success").classList.add("show");
+    } catch (err) {
+      document.getElementById("err-banner").classList.add("show");
+      btn.disabled = false;
+      btn.textContent = "Enviar solicitud";
+    }
   }
 
   function resetForm() {
     document.getElementById("success").classList.remove("show");
     document.getElementById("step1").classList.add("active");
+    document.getElementById("agente").value = "";
     document.getElementById("tipo").value = "";
-    document.getElementById("doc_firmado").value = "";
+    document.getElementById("doc_confirmado").checked = false;
+    document.getElementById("err-doc").classList.remove("show");
     document.getElementById("link_adicional").value = "";
     document.getElementById("comentarios").value = "";
     document.getElementById("tabla-body").innerHTML = "";
@@ -309,9 +405,10 @@
     addRow();
     document.getElementById("step-label-1").classList.add("active");
     document.getElementById("step-label-2").classList.remove("active");
+    document.getElementById("btn-submit").disabled = false;
+    document.getElementById("btn-submit").textContent = "Enviar solicitud";
   }
 
-  // Init
   addRow();
 </script>
 </body>
