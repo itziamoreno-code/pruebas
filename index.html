@@ -45,17 +45,14 @@
 
     .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid #e5e7eb; width: 100%; }
     table { width: 100%; min-width: 1056px; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
-    table colgroup col:nth-child(1) { width: 100px; }
-    table colgroup col:nth-child(2) { width: 115px; }
-    table colgroup col:nth-child(3) { width: 70px; }
-    table colgroup col:nth-child(4) { width: 100px; }
-    table colgroup col:nth-child(5) { width: 100px; }
-    table colgroup col:nth-child(6) { width: 110px; }
-    table colgroup col:nth-child(7) { width: 100px; }
-    table colgroup col:nth-child(8) { width: 110px; }
-    table colgroup col:nth-child(9) { width: 100px; }
-    table colgroup col:nth-child(10) { width: 115px; }
-    table colgroup col:nth-child(11) { width: 36px; }
+    table colgroup col:nth-child(1) { width: 110px; }
+    table colgroup col:nth-child(2) { width: 80px; }
+    table colgroup col:nth-child(3) { width: 120px; }
+    table colgroup col:nth-child(4) { width: 120px; }
+    table colgroup col:nth-child(5) { width: 120px; }
+    table colgroup col:nth-child(6) { width: 120px; }
+    table colgroup col:nth-child(7) { width: 110px; }
+    table colgroup col:nth-child(8) { width: 36px; }
     thead tr { background: #f9fafb; }
     th { text-align: left; padding: 8px 10px; font-size: 10px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid #e5e7eb; white-space: normal; word-break: break-word; }
     td { border-bottom: 1px solid #f3f4f6; padding: 6px 6px; }
@@ -209,19 +206,17 @@
 
       <div class="table-wrap">
         <table>
-          <colgroup><col/><col/><col/><col/><col/><col/><col/><col/><col/><col/></colgroup>
+          <colgroup><col/><col/><col/><col/><col/><col/><col/><col/></colgroup>
           <thead>
             <tr>
               <th>ID Organización Fuente</th>
-              <th>ID Owner Organización Fuente</th>
               <th>ID User</th>
-              <th>Doctor</th>
+              <th>Nombre Doctor</th>
               <th>ID Consultorio Fuente</th>
-              <th>Consultorio Fuente</th>
+              <th>Nombre Consultorio Fuente</th>
               <th>ID Consultorio Destino</th>
-              <th>Consultorio Destino</th>
+              <th>Nombre Consultorio Destino</th>
               <th>ID Organización Destino</th>
-              <th>ID Owner Organización Destino</th>
               <th></th>
             </tr>
           </thead>
@@ -263,8 +258,8 @@
     const tbody = document.getElementById("tabla-body");
     const tr = document.createElement("tr");
     tr.id = "row-" + rowCount;
-    const cols = ["id_org_fuente","id_owner_org_fuente","id_user","doctor","id_cons_fuente","cons_fuente","id_cons_destino","cons_destino","id_org_destino","id_owner_org_destino"];
-    const placeholders = ["####","####","####","Dr. Xxxx","####","Clínica X","####","Clínica X","####","####"];
+    const cols = ["id_org_fuente","id_user","doctor","id_cons_fuente","cons_fuente","id_cons_destino","cons_destino","id_org_destino"];
+    const placeholders = ["####","####","Dr. Xxxx","####","Clínica X","####","Clínica X","####"];
     let html = "";
     cols.forEach((c, i) => {
       html += `<td><input type="text" name="${c}_${rowCount}" placeholder="${placeholders[i]}"/></td>`;
@@ -325,8 +320,8 @@
 
   function collectTableData() {
     const rows = document.querySelectorAll("#tabla-body tr");
-    const cols = ["id_org_fuente","id_owner_org_fuente","id_user","doctor","id_cons_fuente","cons_fuente","id_cons_destino","cons_destino","id_org_destino","id_owner_org_destino"];
-    const colHeaders = ["ID Organización Fuente","ID Owner Organización Fuente","ID User","Doctor","ID Consultorio Fuente","Consultorio Fuente","ID Consultorio Destino","Consultorio Destino","ID Organización Destino","ID Owner Organización Destino"];
+    const cols = ["id_org_fuente","id_user","doctor","id_cons_fuente","cons_fuente","id_cons_destino","cons_destino","id_org_destino"];
+    const colHeaders = ["ID Organización Fuente","ID User","Doctor","ID Consultorio Fuente","Consultorio Fuente","ID Consultorio Destino","Consultorio Destino","ID Organización Destino"];
     const data = [];
     rows.forEach(row => {
       const inputs = row.querySelectorAll("input");
@@ -364,7 +359,7 @@
       agente, tipo, doc_firmado, link_adicional, comentarios, fecha,
       tabla_rows: tablaData,
       tabla_wiki: tableWiki,
-      jira_summary: `[${tipo}] - ${tablaData.map(r => r.cons_migrar).filter(Boolean).join(", ")}`,
+      jira_summary: `[${tipo}] - ${tablaData.map(r => r.cons_destino).filter(Boolean).join(", ")}`,
       jira_description:
         `*Agente:* ${agente}\n` +
         `*Tipo de importación:* ${tipo}\n` +
