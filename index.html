@@ -8,27 +8,17 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f3f4f6; min-height: 100vh; padding: 32px 16px; color: #111827; }
     .container { max-width: 1100px; margin: 0 auto; }
-
     .header { margin-bottom: 24px; }
     .steps { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #9ca3af; margin-bottom: 8px; }
     .steps .active { color: #7c3aed; font-weight: 700; }
     h1 { font-size: 24px; font-weight: 800; color: #111827; }
     .subtitle { font-size: 14px; color: #6b7280; margin-top: 4px; }
-
     .card { background: #fff; border-radius: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); border: 1px solid #e5e7eb; padding: 28px; }
-
     .field { margin-bottom: 20px; }
     label { display: block; font-size: 13px; font-weight: 700; color: #374151; margin-bottom: 4px; }
     .hint { font-size: 11px; color: #9ca3af; margin-bottom: 6px; }
-    input[type="text"], select, textarea {
-      width: 100%; border: 1px solid #d1d5db; border-radius: 8px;
-      padding: 9px 12px; font-size: 14px; color: #111827;
-      transition: border 0.15s, box-shadow 0.15s; outline: none;
-      font-family: inherit;
-    }
-    input[type="text"]:focus, select:focus, textarea:focus {
-      border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
-    }
+    input[type="text"], select, textarea { width: 100%; border: 1px solid #d1d5db; border-radius: 8px; padding: 9px 12px; font-size: 14px; color: #111827; transition: border 0.15s, box-shadow 0.15s; outline: none; font-family: inherit; }
+    input[type="text"]:focus, select:focus, textarea:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
     input.error, select.error, textarea.error { border-color: #ef4444; background: #fef2f2; }
     .error-msg { color: #ef4444; font-size: 11px; margin-top: 4px; display: none; }
     .error-msg.show { display: block; }
@@ -36,13 +26,11 @@
     .opt { color: #9ca3af; font-weight: 400; }
     textarea { resize: vertical; min-height: 80px; }
     select { background: #fff; cursor: pointer; }
-
     .table-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
     .table-header h2 { font-size: 15px; font-weight: 700; color: #111827; }
     .table-header p { font-size: 12px; color: #9ca3af; margin-top: 2px; }
-    .btn-add-top { background: #fff; border: 1px solid #7c3aed; color: #7c3aed; border-radius: 8px; padding: 7px 14px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+    .btn-add-top { background: #fff; border: 1px solid #7c3aed; color: #7c3aed; border-radius: 8px; padding: 7px 14px; font-size: 13px; font-weight: 600; cursor: pointer; }
     .btn-add-top:hover { background: #f5f3ff; }
-
     .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid #e5e7eb; width: 100%; }
     table { width: 100%; min-width: 1036px; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
     table colgroup col:nth-child(1) { width: 130px; }
@@ -64,26 +52,22 @@
     .td-remove { width: 36px; text-align: center; }
     .btn-remove { background: none; border: none; color: #d1d5db; font-size: 18px; cursor: pointer; line-height: 1; padding: 4px; border-radius: 4px; transition: color 0.15s; }
     .btn-remove:hover { color: #ef4444; }
-
     .table-footer { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
     .btn-add-row { background: none; border: none; color: #7c3aed; font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0; }
     .btn-add-row:hover { text-decoration: underline; }
     .row-count { font-size: 12px; color: #9ca3af; }
     .table-error { color: #ef4444; font-size: 12px; margin-top: 6px; display: none; }
     .table-error.show { display: block; }
-
     .warning { background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 10px 14px; display: flex; gap: 8px; align-items: flex-start; margin-top: 20px; }
     .warning span { font-size: 16px; }
     .warning p { font-size: 12px; color: #92400e; }
-
     .actions { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; }
-    .btn-back { background: #fff; border: 1px solid #e5e7eb; color: #6b7280; border-radius: 8px; padding: 9px 18px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+    .btn-back { background: #fff; border: 1px solid #e5e7eb; color: #6b7280; border-radius: 8px; padding: 9px 18px; font-size: 14px; font-weight: 600; cursor: pointer; }
     .btn-back:hover { background: #f9fafb; }
-    .btn-next, .btn-submit { background: #7c3aed; border: none; color: #fff; border-radius: 8px; padding: 9px 22px; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.15s; }
+    .btn-next, .btn-submit { background: #7c3aed; border: none; color: #fff; border-radius: 8px; padding: 9px 22px; font-size: 14px; font-weight: 700; cursor: pointer; }
     .btn-next:hover { background: #6d28d9; }
     .btn-submit:hover:not(:disabled) { background: #6d28d9; }
     .btn-submit:disabled { background: #a78bfa; cursor: not-allowed; }
-
     .success { display: none; text-align: center; padding: 48px 24px; }
     .success.show { display: block; }
     .success-icon { font-size: 56px; margin-bottom: 16px; }
@@ -94,19 +78,19 @@
     .ticket-badge .number { font-size: 28px; font-weight: 800; color: #7c3aed; }
     .ticket-badge .meta { font-size: 12px; color: #6b7280; margin-top: 4px; }
     .btn-reset { background: none; border: none; color: #7c3aed; font-size: 13px; text-decoration: underline; cursor: pointer; }
-
     .error-banner { display: none; background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 10px 14px; margin-top: 16px; font-size: 13px; color: #b91c1c; }
     .error-banner.show { display: block; }
-
     .input-suffix-wrap { display: flex; align-items: center; border: 1px solid #d1d5db; border-radius: 8px; overflow: hidden; transition: border 0.15s, box-shadow 0.15s; max-width: 50%; }
     .input-suffix-wrap:focus-within { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
     .input-suffix-wrap.error { border-color: #ef4444; background: #fef2f2; }
     .input-suffix-wrap input { border: none; border-radius: 0; box-shadow: none; flex: 1; min-width: 0; }
     .input-suffix-wrap input:focus { border: none; box-shadow: none; }
     .input-suffix { padding: 9px 12px; font-size: 14px; color: #6b7280; background: #f9fafb; border-left: 1px solid #d1d5db; white-space: nowrap; }
-
     .step { display: none; }
     .step.active { display: block; }
+    .conditional-fields { display: none; background: #f5f3ff; border: 1px solid #ede9fe; border-radius: 10px; padding: 16px; margin-top: -8px; margin-bottom: 20px; }
+    .conditional-fields.show { display: block; }
+    .conditional-fields .field:last-child { margin-bottom: 0; }
   </style>
 </head>
 <body>
@@ -140,6 +124,7 @@
 
     <!-- STEP 1 -->
     <div class="step active" id="step1">
+
       <div class="field">
         <label>Agente que hace la solicitud <span class="req">*</span></label>
         <div class="input-suffix-wrap" id="agente-wrap">
@@ -151,14 +136,33 @@
 
       <div class="field">
         <label>Tipo de importación <span class="req">*</span></label>
-        <select id="tipo">
+        <select id="tipo" onchange="onTipoChange()">
           <option value="">Selecciona una opción</option>
           <option>Migración de consultorio</option>
           <option>Migración de doctor</option>
           <option>Migración de organización</option>
+          <option>Cliente Externo</option>
           <option>Otro</option>
         </select>
         <div class="error-msg" id="err-tipo">Campo obligatorio</div>
+      </div>
+
+      <!-- Campos condicionales Cliente Externo -->
+      <div class="conditional-fields" id="cliente-externo-fields">
+        <div class="field">
+          <label>Plataforma <span class="req">*</span></label>
+          <select id="plataforma">
+            <option value="">Selecciona una opción</option>
+            <option>Sabio</option>
+            <option>Siku</option>
+          </select>
+          <div class="error-msg" id="err-plataforma">Campo obligatorio</div>
+        </div>
+        <div class="field">
+          <label>API Key <span class="req">*</span></label>
+          <textarea id="api_key" placeholder="Ingresa el API Key del cliente"></textarea>
+          <div class="error-msg" id="err-api-key">Campo obligatorio</div>
+        </div>
       </div>
 
       <div class="field">
@@ -207,16 +211,16 @@
 
       <div class="table-wrap">
         <table>
-          <colgroup><col/><col/><col/><col/><col/><col/><col/><col/></colgroup>
+          <colgroup><col/><col/><col/><col/><col/><col/><col/><col/><col/></colgroup>
           <thead>
             <tr>
               <th>ID Organización Fuente</th>
               <th>ID User</th>
-              <th>Nombre Doctor</th>
+              <th>Doctor</th>
               <th>ID Consultorio Fuente</th>
-              <th>Nombre Consultorio Fuente</th>
+              <th>Consultorio Fuente</th>
               <th>ID Consultorio Destino</th>
-              <th>Nombre Consultorio Destino</th>
+              <th>Consultorio Destino</th>
               <th>ID Organización Destino</th>
               <th></th>
             </tr>
@@ -251,8 +255,19 @@
 
 <script>
   const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/813823/uxc97vz";
-
   let rowCount = 0;
+
+  function onTipoChange() {
+    const tipo = document.getElementById("tipo").value;
+    const fields = document.getElementById("cliente-externo-fields");
+    if (tipo === "Cliente Externo") {
+      fields.classList.add("show");
+    } else {
+      fields.classList.remove("show");
+      document.getElementById("plataforma").value = "";
+      document.getElementById("api_key").value = "";
+    }
+  }
 
   function addRow() {
     rowCount++;
@@ -286,6 +301,7 @@
 
   function goStep2() {
     let valid = true;
+
     [["agente","err-agente"],["tipo","err-tipo"],["comentarios","err-comentarios"]].forEach(([id, errId]) => {
       const el = document.getElementById(id);
       const wrap = document.getElementById(id + "-wrap");
@@ -298,6 +314,27 @@
         document.getElementById(errId).classList.remove("show");
       }
     });
+
+    if (document.getElementById("tipo").value === "Cliente Externo") {
+      const plat = document.getElementById("plataforma");
+      const apiKey = document.getElementById("api_key");
+      if (!plat.value) {
+        plat.classList.add("error");
+        document.getElementById("err-plataforma").classList.add("show");
+        valid = false;
+      } else {
+        plat.classList.remove("error");
+        document.getElementById("err-plataforma").classList.remove("show");
+      }
+      if (!apiKey.value.trim()) {        apiKey.classList.add("error");
+        document.getElementById("err-api-key").classList.add("show");
+        valid = false;
+      } else {
+        apiKey.classList.remove("error");
+        document.getElementById("err-api-key").classList.remove("show");
+      }
+    }
+
     const docCheck = document.getElementById("doc_confirmado");
     if (!docCheck.checked) {
       document.getElementById("err-doc").classList.add("show");
@@ -305,6 +342,7 @@
     } else {
       document.getElementById("err-doc").classList.remove("show");
     }
+
     if (!valid) return;
     document.getElementById("step1").classList.remove("active");
     document.getElementById("step2").classList.add("active");
@@ -331,9 +369,7 @@
       data.push(rowObj);
     });
     let tableWiki = "|| " + colHeaders.join(" || ") + " ||\n";
-    data.forEach(r => {
-      tableWiki += "| " + cols.map(c => r[c] || " ").join(" | ") + " |\n";
-    });
+    data.forEach(r => { tableWiki += "| " + cols.map(c => r[c] || " ").join(" | ") + " |\n"; });
     return { data, tableWiki };
   }
 
@@ -350,6 +386,8 @@
 
     const agente = document.getElementById("agente").value.trim() + "@huli.io";
     const tipo = document.getElementById("tipo").value;
+    const plataforma = tipo === "Cliente Externo" ? document.getElementById("plataforma").value : "";
+    const api_key = tipo === "Cliente Externo" ? document.getElementById("api_key").value.trim() : "";
     const doc_firmado = "https://drive.google.com/drive/folders/1gnqx5gHW7sqPzw0l1YTKhP6A8-R6BSXk";
     const link_adicional = document.getElementById("link_adicional").value.trim();
     const comentarios = document.getElementById("comentarios").value.trim();
@@ -357,26 +395,24 @@
     const { data: tablaData, tableWiki } = collectTableData();
 
     const payload = {
-      agente, tipo, doc_firmado, link_adicional, comentarios, fecha,
+      agente, tipo, plataforma, api_key, doc_firmado, link_adicional, comentarios, fecha,
       tabla_rows: tablaData,
       tabla_wiki: tableWiki,
       jira_summary: `[${tipo}] - ${tablaData.map(r => r.cons_destino).filter(Boolean).join(", ")}`,
       jira_description:
+        `*Tipo de Importación:* ${tipo}${plataforma ? ` - ${plataforma}` : ""}\n` +
         `*Agente:* ${agente}\n` +
-        `*Tipo de importación:* ${tipo}\n` +
         `*Fecha:* ${fecha}\n` +
-        `*Documento firmado:* [Ver documento|${doc_firmado}]\n` +
+        `*Documento firmado:* [Ver carpeta|${doc_firmado}]\n` +
         (link_adicional ? `*Link adicional:* [Ver|${link_adicional}]\n` : "") +
+        (api_key ? `\n*Información de API Key:*\n${api_key}\n` : "") +
         `\n*Comentarios:*\n${comentarios}\n\n` +
-        `*Tabla de datos:*\n${tableWiki}`
+        `*Tabla de datos:*\n${tableWiki}\n\n` +
+        `{panel:borderStyle=solid|borderColor=#f6ae2d|bgColor=#fffbeb}\n⚠️ No olvide asociar los doctores al ORG destino\n{panel}`
     };
 
     try {
-      await fetch(ZAPIER_WEBHOOK_URL, {
-        method: "POST", mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
+      await fetch(ZAPIER_WEBHOOK_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       const n = rows.length;
       document.getElementById("success-meta").textContent = tipo + " · " + fecha + " · " + n + " fila" + (n !== 1 ? "s" : "");
       document.getElementById("step2").classList.remove("active");
@@ -393,6 +429,9 @@
     document.getElementById("step1").classList.add("active");
     document.getElementById("agente").value = "";
     document.getElementById("tipo").value = "";
+    document.getElementById("cliente-externo-fields").classList.remove("show");
+    document.getElementById("plataforma").value = "";
+    document.getElementById("api_key").value = "";
     document.getElementById("doc_confirmado").checked = false;
     document.getElementById("err-doc").classList.remove("show");
     document.getElementById("link_adicional").value = "";
