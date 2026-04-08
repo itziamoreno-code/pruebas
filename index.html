@@ -3,36 +3,138 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Nueva Importación</title>
+  <title>Nueva Importación · Huli</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
+    :root {
+      --blue:       #2a62d4;
+      --blue-dark:  #254478;
+      --teal:       #1ecad3;
+      --yellow:     #ffce31;
+      --black:      #1e1e1e;
+      --gray:       #474747;
+      --white:      #ffffff;
+      --verde-c:    #22c55e;
+      --amarillo-c: #ffce31;
+      --rojo-c:     #ef4444;
+      --font:       'Plus Jakarta Sans', sans-serif;
+      --mono:       'SF Mono', 'Fira Code', monospace;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f3f4f6; min-height: 100vh; padding: 32px 16px; color: #111827; }
-    .container { max-width: 1100px; margin: 0 auto; }
-    .header { margin-bottom: 24px; }
-    .steps { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #9ca3af; margin-bottom: 8px; }
-    .steps .active { color: #7c3aed; font-weight: 700; }
-    h1 { font-size: 24px; font-weight: 800; color: #111827; }
-    .subtitle { font-size: 14px; color: #6b7280; margin-top: 4px; }
-    .card { background: #fff; border-radius: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); border: 1px solid #e5e7eb; padding: 28px; }
+
+    body {
+      font-family: var(--font);
+      background: #dce8f8;
+      min-height: 100vh;
+      padding: 40px 16px;
+      color: var(--black);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Blobs */
+    .blob { position: fixed; border-radius: 50%; filter: blur(70px); pointer-events: none; z-index: 0; animation: blobFloat ease-in-out infinite; }
+    .bb1 { width: 420px; height: 420px; top: -160px; left: -160px; background: rgba(42,98,212,.2); animation-duration: 11s; }
+    .bb2 { width: 360px; height: 360px; bottom: -90px; right: -90px; background: rgba(30,202,211,.18); animation-duration: 9s; }
+    .bb3 { width: 300px; height: 300px; top: 40%; left: 60%; background: rgba(37,68,120,.13); animation-duration: 13s; }
+    .bb4 { width: 260px; height: 260px; top: 20%; right: 10%; background: rgba(255,206,49,.12); animation-duration: 10s; }
+    @keyframes blobFloat {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%     { transform: translate(22px,-28px) scale(1.04); }
+      66%     { transform: translate(-16px,16px) scale(.97); }
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+
+    /* Header */
+    .header { margin-bottom: 28px; animation: fadeUp .5s cubic-bezier(.22,1,.36,1) both; }
+    .logo { font-size: 18px; font-weight: 800; letter-spacing: -.02em; margin-bottom: 20px; }
+    .logo .plus { color: var(--blue); }
+    .logo .huli { color: var(--blue-dark); }
+    .steps { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: rgba(37,68,120,.35); margin-bottom: 10px; }
+    .steps .active { color: var(--blue); }
+    h1 { font-size: 26px; font-weight: 800; color: var(--blue-dark); letter-spacing: -.03em; }
+    .subtitle { font-size: 13px; color: rgba(37,68,120,.5); margin-top: 4px; font-weight: 500; }
+
+    /* Card */
+    .card {
+      background: rgba(255,255,255,.52);
+      backdrop-filter: blur(24px) saturate(200%) brightness(1.05);
+      -webkit-backdrop-filter: blur(24px) saturate(200%) brightness(1.05);
+      border: 1px solid rgba(255,255,255,.8);
+      box-shadow: 0 2px 0 rgba(255,255,255,.9) inset, 0 -1px 0 rgba(42,98,212,.06) inset, 0 10px 36px rgba(37,68,120,.1), 0 3px 10px rgba(37,68,120,.06);
+      border-radius: 20px;
+      padding: 32px;
+      animation: fadeUp .5s .08s cubic-bezier(.22,1,.36,1) both;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; border-radius: 0 0 20px 20px; background: var(--blue); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Fields */
     .field { margin-bottom: 20px; }
-    label { display: block; font-size: 13px; font-weight: 700; color: #374151; margin-bottom: 4px; }
-    .hint { font-size: 11px; color: #9ca3af; margin-bottom: 6px; }
-    .hint-small { font-size: 11px; color: #9ca3af; margin-top: 5px; line-height: 1.5; }
-    input[type="text"], select, textarea { width: 100%; border: 1px solid #d1d5db; border-radius: 8px; padding: 9px 12px; font-size: 14px; color: #111827; transition: border 0.15s, box-shadow 0.15s; outline: none; font-family: inherit; }
-    input[type="text"]:focus, select:focus, textarea:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
-    input.error, select.error, textarea.error { border-color: #ef4444; background: #fef2f2; }
-    .error-msg { color: #ef4444; font-size: 11px; margin-top: 4px; display: none; }
+    label { display: block; font-size: 11px; font-weight: 800; color: rgba(37,68,120,.5); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+    .hint { font-size: 11px; color: rgba(37,68,120,.4); margin-bottom: 6px; font-weight: 500; }
+    .hint-small { font-size: 11px; color: rgba(37,68,120,.45); margin-top: 6px; line-height: 1.6; font-weight: 500; }
+
+    input[type="text"], select, textarea {
+      width: 100%;
+      border: 1.5px solid rgba(42,98,212,.15);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: var(--font);
+      font-weight: 500;
+      color: var(--black);
+      background: rgba(255,255,255,.7);
+      transition: border .15s, box-shadow .15s;
+      outline: none;
+    }
+    input[type="text"]:focus, select:focus, textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(42,98,212,.1);
+      background: #fff;
+    }
+    input.error, select.error, textarea.error { border-color: var(--rojo-c); background: rgba(239,68,68,.04); }
+    .error-msg { color: var(--rojo-c); font-size: 11px; font-weight: 600; margin-top: 4px; display: none; }
     .error-msg.show { display: block; }
-    .req { color: #ef4444; }
-    .opt { color: #9ca3af; font-weight: 400; }
+    .req { color: var(--rojo-c); }
+    .opt { color: rgba(37,68,120,.35); font-weight: 600; text-transform: none; letter-spacing: 0; font-size: 11px; }
     textarea { resize: vertical; min-height: 80px; }
-    select { background: #fff; cursor: pointer; }
-    .table-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-    .table-header h2 { font-size: 15px; font-weight: 700; color: #111827; }
-    .table-header p { font-size: 12px; color: #9ca3af; margin-top: 2px; }
-    .btn-add-top { background: #fff; border: 1px solid #7c3aed; color: #7c3aed; border-radius: 8px; padding: 7px 14px; font-size: 13px; font-weight: 600; cursor: pointer; }
-    .btn-add-top:hover { background: #f5f3ff; }
-    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid #e5e7eb; width: 100%; }
+    select { cursor: pointer; }
+
+    /* Input suffix */
+    .input-suffix-wrap { display: flex; align-items: center; border: 1.5px solid rgba(42,98,212,.15); border-radius: 10px; overflow: hidden; transition: border .15s, box-shadow .15s; max-width: 50%; background: rgba(255,255,255,.7); }
+    .input-suffix-wrap:focus-within { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(42,98,212,.1); }
+    .input-suffix-wrap.error { border-color: var(--rojo-c); }
+    .input-suffix-wrap input { border: none; border-radius: 0; box-shadow: none; background: transparent; flex: 1; min-width: 0; }
+    .input-suffix-wrap input:focus { border: none; box-shadow: none; }
+    .input-suffix { padding: 10px 14px; font-size: 13px; font-weight: 600; color: rgba(37,68,120,.45); background: rgba(42,98,212,.05); border-left: 1.5px solid rgba(42,98,212,.1); white-space: nowrap; }
+
+    /* Conditional fields */
+    .conditional-fields { display: none; background: rgba(42,98,212,.04); border: 1.5px solid rgba(42,98,212,.12); border-radius: 12px; padding: 20px; margin-top: -8px; margin-bottom: 20px; }
+    .conditional-fields.show { display: block; }
+    .conditional-fields .field:last-child { margin-bottom: 0; }
+
+    /* Drive button */
+    .drive-btn { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.8); border: 1.5px solid rgba(42,98,212,.2); color: var(--blue); border-radius: 8px; padding: 8px 16px; font-size: 13px; font-weight: 700; font-family: var(--font); text-decoration: none; transition: background .15s, border .15s; }
+    .drive-btn:hover { background: rgba(42,98,212,.06); border-color: var(--blue); }
+    .checkbox-label { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--black); cursor: pointer; margin: 0; text-transform: none; letter-spacing: 0; }
+    input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--blue); cursor: pointer; }
+
+    /* Table */
+    .table-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .table-header h2 { font-size: 14px; font-weight: 800; color: var(--blue-dark); letter-spacing: -.02em; }
+    .table-header p { font-size: 12px; color: rgba(37,68,120,.4); margin-top: 2px; font-weight: 500; }
+    .btn-add-top { background: rgba(255,255,255,.8); border: 1.5px solid rgba(42,98,212,.2); color: var(--blue); border-radius: 8px; padding: 7px 14px; font-size: 12px; font-weight: 700; font-family: var(--font); cursor: pointer; transition: background .15s; }
+    .btn-add-top:hover { background: rgba(42,98,212,.06); }
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1.5px solid rgba(42,98,212,.12); }
     table { width: 100%; min-width: 1036px; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
     table colgroup col:nth-child(1) { width: 130px; }
     table colgroup col:nth-child(2) { width: 80px; }
@@ -43,290 +145,265 @@
     table colgroup col:nth-child(7) { width: 130px; }
     table colgroup col:nth-child(8) { width: 130px; }
     table colgroup col:nth-child(9) { width: 36px; }
-    thead tr { background: #f9fafb; }
-    th { text-align: left; padding: 8px 10px; font-size: 10px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid #e5e7eb; white-space: normal; word-break: break-word; }
-    td { border-bottom: 1px solid #f3f4f6; padding: 6px 6px; }
+    thead tr { background: rgba(42,98,212,.04); }
+    th { text-align: left; padding: 10px 12px; font-size: 10px; font-weight: 800; color: rgba(37,68,120,.5); text-transform: uppercase; letter-spacing: .08em; border-bottom: 1.5px solid rgba(42,98,212,.1); white-space: normal; word-break: break-word; font-family: var(--font); }
+    td { border-bottom: 1px solid rgba(42,98,212,.06); padding: 5px; }
     tr:last-child td { border-bottom: none; }
-    tr:nth-child(even) { background: #fafafa; }
-    td input { border: 1px solid transparent; border-radius: 6px; padding: 6px 8px; font-size: 13px; width: 100%; background: transparent; transition: border 0.15s, background 0.15s; }
-    td input:focus { border-color: #7c3aed; background: #f5f3ff; outline: none; }
+    tr:nth-child(even) td { background: rgba(42,98,212,.02); }
+    td input { border: 1.5px solid transparent; border-radius: 7px; padding: 6px 9px; font-size: 13px; font-family: var(--font); font-weight: 500; width: 100%; background: transparent; transition: border .15s, background .15s; color: var(--black); }
+    td input:focus { border-color: var(--blue); background: rgba(42,98,212,.04); outline: none; }
+    td input::placeholder { color: rgba(37,68,120,.25); font-family: var(--mono); font-size: 12px; }
     .td-remove { width: 36px; text-align: center; }
-    .btn-remove { background: none; border: none; color: #d1d5db; font-size: 18px; cursor: pointer; line-height: 1; padding: 4px; border-radius: 4px; transition: color 0.15s; }
-    .btn-remove:hover { color: #ef4444; }
+    .btn-remove { background: none; border: none; color: rgba(37,68,120,.2); font-size: 18px; cursor: pointer; padding: 4px; border-radius: 4px; transition: color .15s; }
+    .btn-remove:hover { color: var(--rojo-c); }
     .table-footer { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
-    .btn-add-row { background: none; border: none; color: #7c3aed; font-size: 13px; font-weight: 600; cursor: pointer; padding: 4px 0; }
+    .btn-add-row { background: none; border: none; color: var(--blue); font-size: 12px; font-weight: 700; font-family: var(--font); cursor: pointer; padding: 4px 0; }
     .btn-add-row:hover { text-decoration: underline; }
-    .row-count { font-size: 12px; color: #9ca3af; }
-    .table-error { color: #ef4444; font-size: 12px; margin-top: 6px; display: none; }
+    .row-count { font-size: 11px; color: rgba(37,68,120,.35); font-weight: 600; }
+    .table-error { color: var(--rojo-c); font-size: 11px; font-weight: 600; margin-top: 6px; display: none; }
     .table-error.show { display: block; }
-    .warning { background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 10px 14px; display: flex; gap: 8px; align-items: flex-start; margin-top: 20px; }
-    .warning span { font-size: 16px; }
-    .warning p { font-size: 12px; color: #92400e; }
-    .actions { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; }
-    .btn-back { background: #fff; border: 1px solid #e5e7eb; color: #6b7280; border-radius: 8px; padding: 9px 18px; font-size: 14px; font-weight: 600; cursor: pointer; }
-    .btn-back:hover { background: #f9fafb; }
-    .btn-next, .btn-submit { background: #7c3aed; border: none; color: #fff; border-radius: 8px; padding: 9px 22px; font-size: 14px; font-weight: 700; cursor: pointer; }
-    .btn-next:hover { background: #6d28d9; }
-    .btn-submit:hover:not(:disabled) { background: #6d28d9; }
-    .btn-submit:disabled { background: #a78bfa; cursor: not-allowed; }
-    .success { display: none; text-align: center; padding: 48px 24px; }
+
+    /* Warning */
+    .warning { background: rgba(255,206,49,.1); border: 1.5px solid rgba(255,206,49,.4); border-radius: 10px; padding: 10px 14px; display: flex; gap: 8px; align-items: flex-start; margin-top: 20px; }
+    .warning p { font-size: 12px; color: #946700; font-weight: 600; }
+
+    /* Buttons */
+    .actions { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; }
+    .btn-back { background: rgba(255,255,255,.7); border: 1.5px solid rgba(42,98,212,.15); color: rgba(37,68,120,.6); border-radius: 10px; padding: 10px 20px; font-size: 13px; font-weight: 700; font-family: var(--font); cursor: pointer; transition: background .15s; }
+    .btn-back:hover { background: rgba(255,255,255,.9); }
+    .btn-next, .btn-submit { background: var(--blue); border: none; color: #fff; border-radius: 10px; padding: 10px 24px; font-size: 13px; font-weight: 800; font-family: var(--font); cursor: pointer; transition: background .15s, box-shadow .15s; box-shadow: 0 4px 14px rgba(42,98,212,.3); }
+    .btn-next:hover, .btn-submit:hover:not(:disabled) { background: var(--blue-dark); box-shadow: 0 4px 18px rgba(42,98,212,.4); }
+    .btn-submit:disabled { background: rgba(42,98,212,.35); box-shadow: none; cursor: not-allowed; }
+
+    /* Error banner */
+    .error-banner { display: none; background: rgba(239,68,68,.06); border: 1.5px solid rgba(239,68,68,.2); border-radius: 10px; padding: 10px 14px; margin-top: 16px; font-size: 13px; font-weight: 600; color: #b91c1c; }
+    .error-banner.show { display: block; }
+
+    /* Success */
+    .success { display: none; text-align: center; padding: 56px 24px; }
     .success.show { display: block; }
     .success-icon { font-size: 56px; margin-bottom: 16px; }
-    .success h2 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
-    .success p { font-size: 14px; color: #6b7280; margin-bottom: 20px; }
-    .ticket-badge { background: #f5f3ff; border-radius: 12px; padding: 16px 24px; display: inline-block; margin-bottom: 20px; }
-    .ticket-badge .label { font-size: 11px; color: #9ca3af; margin-bottom: 4px; }
-    .ticket-badge .number { font-size: 28px; font-weight: 800; color: #7c3aed; }
-    .ticket-badge .meta { font-size: 12px; color: #6b7280; margin-top: 4px; }
-    .btn-reset { background: none; border: none; color: #7c3aed; font-size: 13px; text-decoration: underline; cursor: pointer; }
-    .error-banner { display: none; background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 10px 14px; margin-top: 16px; font-size: 13px; color: #b91c1c; }
-    .error-banner.show { display: block; }
-    .input-suffix-wrap { display: flex; align-items: center; border: 1px solid #d1d5db; border-radius: 8px; overflow: hidden; transition: border 0.15s, box-shadow 0.15s; max-width: 50%; }
-    .input-suffix-wrap:focus-within { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
-    .input-suffix-wrap.error { border-color: #ef4444; background: #fef2f2; }
-    .input-suffix-wrap input { border: none; border-radius: 0; box-shadow: none; flex: 1; min-width: 0; }
-    .input-suffix-wrap input:focus { border: none; box-shadow: none; }
-    .input-suffix { padding: 9px 12px; font-size: 14px; color: #6b7280; background: #f9fafb; border-left: 1px solid #d1d5db; white-space: nowrap; }
+    .success h2 { font-size: 22px; font-weight: 800; color: var(--blue-dark); letter-spacing: -.03em; margin-bottom: 8px; }
+    .success p { font-size: 13px; color: rgba(37,68,120,.5); font-weight: 500; margin-bottom: 20px; }
+    .ticket-badge { background: rgba(42,98,212,.07); border: 1.5px solid rgba(42,98,212,.15); border-radius: 14px; padding: 18px 28px; display: inline-block; margin-bottom: 20px; }
+    .ticket-badge .t-label { font-size: 10px; font-weight: 800; color: rgba(37,68,120,.4); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
+    .ticket-badge .t-number { font-size: 30px; font-weight: 800; color: var(--blue); letter-spacing: -.04em; }
+    .ticket-badge .t-meta { font-size: 12px; color: rgba(37,68,120,.45); margin-top: 4px; font-weight: 500; }
+    .btn-reset { background: none; border: none; color: var(--blue); font-size: 13px; font-weight: 700; font-family: var(--font); text-decoration: underline; cursor: pointer; }
+
     .step { display: none; }
     .step.active { display: block; }
-    .conditional-fields { display: none; background: #f5f3ff; border: 1px solid #ede9fe; border-radius: 10px; padding: 16px; margin-top: -8px; margin-bottom: 20px; }
-    .conditional-fields.show { display: block; }
-    .conditional-fields .field:last-child { margin-bottom: 0; }
+
+    .divider { border: none; border-top: 1px solid rgba(42,98,212,.08); margin: 24px 0; }
   </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <div class="steps">
-      <span id="step-label-1" class="active">① Contexto</span>
-      <span id="step-arrow" style="display:none;">→</span>
-      <span id="step-label-2" style="display:none;">② Datos de importación</span>
-    </div>
-    <h1>Nueva Importación</h1>
-    <p class="subtitle">Completa los campos y la tabla de datos para generar el ticket en Jira.</p>
-  </div>
+  <div class="blob bb1"></div>
+  <div class="blob bb2"></div>
+  <div class="blob bb3"></div>
+  <div class="blob bb4"></div>
 
-  <div class="card">
-
-    <!-- SUCCESS -->
-    <div class="success" id="success">
-      <div class="success-icon">✅</div>
-      <h2>¡Solicitud enviada!</h2>
-      <p>Tu ticket fue creado en Jira exitosamente.</p>
-      <div class="ticket-badge">
-        <div class="label">Ticket generado</div>
-        <div class="number" id="success-ticket-key">—</div>
-        <div class="meta" id="success-meta"></div>
+  <div class="container">
+    <div class="header">
+      <div class="logo"><span class="plus">+</span><span class="huli">Huli</span></div>
+      <div class="steps">
+        <span id="step-label-1" class="active">① Contexto</span>
+        <span id="step-arrow">→</span>
+        <span id="step-label-2">② Datos de importación</span>
       </div>
-      <br/>
-      <p style="font-size:12px;color:#9ca3af;margin-bottom:16px;">Recibirás una confirmación en Slack.</p>
-      <button class="btn-reset" onclick="resetForm()">Nueva solicitud</button>
+      <h1>Nueva Importación</h1>
+      <p class="subtitle">Completa los campos y la tabla de datos para generar el ticket en Jira.</p>
     </div>
 
-    <!-- STEP 1 -->
-    <div class="step active" id="step1">
+    <div class="card">
 
-      <div class="field">
-        <label>Agente que hace la solicitud <span class="req">*</span></label>
-        <div class="input-suffix-wrap" id="agente-wrap">
-          <input type="text" id="agente" placeholder="nombre.apellido"/>
-          <span class="input-suffix">@huli.io</span>
+      <!-- SUCCESS -->
+      <div class="success" id="success">
+        <div class="success-icon">✅</div>
+        <h2>¡Solicitud enviada!</h2>
+        <p>Tu ticket fue creado en Jira exitosamente.</p>
+        <div class="ticket-badge">
+          <div class="t-label">Ticket generado</div>
+          <div class="t-number" id="success-ticket-key">—</div>
+          <div class="t-meta" id="success-meta"></div>
         </div>
-        <div class="error-msg" id="err-agente">Campo obligatorio</div>
+        <br/>
+        <p style="font-size:12px;margin-bottom:16px;">Recibirás una confirmación en Slack.</p>
+        <button class="btn-reset" onclick="resetForm()">Nueva solicitud</button>
       </div>
 
-      <div class="field">
-        <label>Tipo de importación <span class="req">*</span></label>
-        <select id="tipo" onchange="onTipoChange()">
-          <option value="">Selecciona una opción</option>
-          <option>Migración de consultorio</option>
-          <option>Migración de doctor</option>
-          <option>Migración de organización</option>
-          <option>Cliente Externo</option>
-          <option>Otro</option>
-        </select>
-        <div class="error-msg" id="err-tipo">Campo obligatorio</div>
-      </div>
+      <!-- STEP 1 -->
+      <div class="step active" id="step1">
 
-      <!-- Campos condicionales Cliente Externo -->
-      <div class="conditional-fields" id="cliente-externo-fields">
         <div class="field">
-          <label>Plataforma <span class="req">*</span></label>
-          <select id="plataforma" onchange="onPlataformaChange()">
+          <label>Agente que hace la solicitud <span class="req">*</span></label>
+          <div class="input-suffix-wrap" id="agente-wrap">
+            <input type="text" id="agente" placeholder="nombre.apellido"/>
+            <span class="input-suffix">@huli.io</span>
+          </div>
+          <div class="error-msg" id="err-agente">Campo obligatorio</div>
+        </div>
+
+        <div class="field">
+          <label>Tipo de importación <span class="req">*</span></label>
+          <select id="tipo" onchange="onTipoChange()">
             <option value="">Selecciona una opción</option>
-            <option>Sabio</option>
-            <option>Siku</option>
+            <option>Migración de consultorio</option>
+            <option>Migración de doctor</option>
+            <option>Migración de organización</option>
+            <option>Cliente Externo</option>
+            <option>Otro</option>
           </select>
-          <div class="error-msg" id="err-plataforma">Campo obligatorio</div>
+          <div class="error-msg" id="err-tipo">Campo obligatorio</div>
         </div>
 
-        <!-- Campo dinámico según plataforma -->
-        <div class="field" id="field-sabio" style="display:none;">
-          <label>Link Excel data comprimida <span class="req">*</span></label>
-          <input type="text" id="link_excel" placeholder="https://..."/>
-          <div class="error-msg" id="err-link-excel">Campo obligatorio</div>
+        <!-- Campos condicionales Cliente Externo -->
+        <div class="conditional-fields" id="cliente-externo-fields">
+          <div class="field">
+            <label>Plataforma <span class="req">*</span></label>
+            <select id="plataforma" onchange="onPlataformaChange()">
+              <option value="">Selecciona una opción</option>
+              <option>Sabio</option>
+              <option>Siku</option>
+            </select>
+            <div class="error-msg" id="err-plataforma">Campo obligatorio</div>
+          </div>
+          <div class="field" id="field-sabio" style="display:none;">
+            <label>Link Excel data comprimida <span class="req">*</span></label>
+            <input type="text" id="link_excel" placeholder="https://..."/>
+            <div class="error-msg" id="err-link-excel">Campo obligatorio</div>
+          </div>
+          <div class="field" id="field-siku" style="display:none;">
+            <label>API Key <span class="opt">(opcional)</span></label>
+            <textarea id="api_key" placeholder="Ingresa el API Key del cliente"></textarea>
+            <p class="hint-small">⚠️ Solo es necesario si se quieren incluir las citas en la importación. En caso contrario, revisar el export de pacientes para confirmar que podemos pasar la información sin conectarse al API.</p>
+          </div>
         </div>
 
-        <div class="field" id="field-siku" style="display:none;">
-          <label>API Key <span class="opt">(opcional)</span></label>
-          <textarea id="api_key" placeholder="Ingresa el API Key del cliente"></textarea>
-          <p class="hint-small">⚠️ Solo es necesario si se quieren incluir las citas en la importación. En caso contrario, revisar el export de pacientes para confirmar que podemos pasar la información sin conectarse al API.</p>
+        <div class="field">
+          <label id="doc-label">Documento firmado <span class="req" id="doc-req">*</span><span class="opt" id="doc-opt" style="display:none;">(opcional)</span></label>
+          <div class="hint">Sube el PDF, imagen o .docx a la carpeta de Drive antes de continuar</div>
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:6px;">
+            <a href="https://drive.google.com/drive/folders/1gnqx5gHW7sqPzw0l1YTKhP6A8-R6BSXk" target="_blank" class="drive-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Abrir carpeta en Drive
+            </a>
+            <label class="checkbox-label">
+              <input type="checkbox" id="doc_confirmado"/>
+              Ya subí el documento
+            </label>
+          </div>
+          <div class="error-msg" id="err-doc">Confirma que subiste el documento</div>
+        </div>
+
+        <div class="field">
+          <label>Link adicional <span class="opt" id="link-opt">(opcional)</span><span class="req" id="link-req" style="display:none;">*</span></label>
+          <div class="hint" id="link-hint">Si tienes otro documento importante agrégalo aquí</div>
+          <input type="text" id="link_adicional" placeholder="https://..."/>
+          <div class="error-msg" id="err-link-adicional">Campo obligatorio</div>
+        </div>
+
+        <div class="field">
+          <label>Comentarios <span class="req">*</span></label>
+          <textarea id="comentarios" placeholder="Agrega cualquier detalle relevante para esta importación..."></textarea>
+          <div class="error-msg" id="err-comentarios">Campo obligatorio</div>
+        </div>
+
+        <div class="actions">
+          <div></div>
+          <button class="btn-next" id="btn-step1" onclick="handleStep1()">Siguiente →</button>
         </div>
       </div>
 
-      <!-- Documento firmado — se vuelve opcional para Cliente Externo -->
-      <div class="field">
-        <label id="doc-label">Documento firmado <span class="req" id="doc-req">*</span><span class="opt" id="doc-opt" style="display:none;">(opcional)</span></label>
-        <div class="hint">Sube el PDF, imagen o .docx a la carpeta de Drive antes de continuar</div>
-        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 4px;">
-          <a href="https://drive.google.com/drive/folders/1gnqx5gHW7sqPzw0l1YTKhP6A8-R6BSXk" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 1px solid #7c3aed; color: #7c3aed; border-radius: 8px; padding: 8px 16px; font-size: 13px; font-weight: 600; text-decoration: none;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            Abrir carpeta en Drive
-          </a>
-          <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 400; color: #374151; cursor: pointer; margin: 0;">
-            <input type="checkbox" id="doc_confirmado" style="width: 16px; height: 16px; accent-color: #7c3aed; cursor: pointer;"/>
-            Ya subí el documento
-          </label>
+      <!-- STEP 2 -->
+      <div class="step" id="step2">
+        <div class="table-header">
+          <div>
+            <h2>Tabla de datos</h2>
+            <p>Agrega una fila por cada registro a importar</p>
+          </div>
+          <button class="btn-add-top" onclick="addRow()">+ Agregar fila</button>
         </div>
-        <div class="error-msg" id="err-doc">Confirma que subiste el documento</div>
+
+        <div class="table-wrap">
+          <table>
+            <colgroup><col/><col/><col/><col/><col/><col/><col/><col/><col/></colgroup>
+            <thead>
+              <tr>
+                <th>ID Organización Fuente</th>
+                <th>ID User</th>
+                <th>Doctor</th>
+                <th>ID Consultorio Fuente</th>
+                <th>Consultorio Fuente</th>
+                <th>ID Consultorio Destino</th>
+                <th>Consultorio Destino</th>
+                <th>ID Organización Destino</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tabla-body"></tbody>
+          </table>
+        </div>
+
+        <div class="table-footer">
+          <button class="btn-add-row" onclick="addRow()">+ Agregar otra fila</button>
+          <span class="row-count" id="row-count">1 fila</span>
+        </div>
+        <div class="table-error" id="err-tabla">Agrega al menos una fila con datos</div>
+
+        <div class="warning">
+          <span>⚠️</span>
+          <p>No olvide asociar los doctores al ORG destino</p>
+        </div>
+
+        <div class="error-banner" id="err-banner">Hubo un error al enviar la solicitud. Por favor intenta de nuevo.</div>
+
+        <div class="actions">
+          <button class="btn-back" onclick="goStep1()">← Regresar</button>
+          <button class="btn-submit" id="btn-submit" onclick="submitForm(false)">Enviar solicitud</button>
+        </div>
       </div>
 
-      <!-- Link adicional — se vuelve obligatorio para Cliente Externo -->
-      <div class="field">
-        <label>Link adicional <span class="opt" id="link-opt">(opcional)</span><span class="req" id="link-req" style="display:none;">*</span></label>
-        <div class="hint" id="link-hint">Si tienes otro documento importante agrégalo aquí</div>
-        <input type="text" id="link_adicional" placeholder="https://..."/>
-        <div class="error-msg" id="err-link-adicional">Campo obligatorio</div>
-      </div>
-
-      <div class="field">
-        <label>Comentarios <span class="req">*</span></label>
-        <textarea id="comentarios" placeholder="Agrega cualquier detalle relevante para esta importación..."></textarea>
-        <div class="error-msg" id="err-comentarios">Campo obligatorio</div>
-      </div>
-
-      <div class="actions">
-        <div></div>
-        <button class="btn-next" id="btn-step1" onclick="handleStep1()">Siguiente →</button>
-      </div>
     </div>
-
-    <!-- STEP 2 -->
-    <div class="step" id="step2">
-      <div class="table-header">
-        <div>
-          <h2>Tabla de datos</h2>
-          <p>Agrega una fila por cada registro a importar</p>
-        </div>
-        <button class="btn-add-top" onclick="addRow()">+ Agregar fila</button>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <colgroup><col/><col/><col/><col/><col/><col/><col/><col/><col/></colgroup>
-          <thead>
-            <tr>
-              <th>ID Organización Fuente</th>
-              <th>ID User</th>
-              <th>Doctor</th>
-              <th>ID Consultorio Fuente</th>
-              <th>Consultorio Fuente</th>
-              <th>ID Consultorio Destino</th>
-              <th>Consultorio Destino</th>
-              <th>ID Organización Destino</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="tabla-body"></tbody>
-        </table>
-      </div>
-
-      <div class="table-footer">
-        <button class="btn-add-row" onclick="addRow()">+ Agregar otra fila</button>
-        <span class="row-count" id="row-count">1 fila</span>
-      </div>
-      <div class="table-error" id="err-tabla">Agrega al menos una fila con datos</div>
-
-      <div class="warning">
-        <span>⚠️</span>
-        <p>No olvide asociar los doctores al ORG destino</p>
-      </div>
-
-      <div class="error-banner" id="err-banner">
-        Hubo un error al enviar la solicitud. Por favor intenta de nuevo.
-      </div>
-
-      <div class="actions">
-        <button class="btn-back" onclick="goStep1()">← Regresar</button>
-        <button class="btn-submit" id="btn-submit" onclick="submitForm(false)">Enviar solicitud</button>
-      </div>
-    </div>
-
   </div>
-</div>
 
 <script>
   const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/813823/uxc97vz";
   let rowCount = 0;
 
-  function isClienteExterno() {
-    return document.getElementById("tipo").value === "Cliente Externo";
-  }
+  function isClienteExterno() { return document.getElementById("tipo").value === "Cliente Externo"; }
 
   function onTipoChange() {
     const tipo = document.getElementById("tipo").value;
     const ext = document.getElementById("cliente-externo-fields");
-    const docReq = document.getElementById("doc-req");
-    const docOpt = document.getElementById("doc-opt");
-    const linkOpt = document.getElementById("link-opt");
-    const linkReq = document.getElementById("link-req");
+    const docReq = document.getElementById("doc-req"), docOpt = document.getElementById("doc-opt");
+    const linkOpt = document.getElementById("link-opt"), linkReq = document.getElementById("link-req");
     const linkHint = document.getElementById("link-hint");
     const btnStep1 = document.getElementById("btn-step1");
-    const stepArrow = document.getElementById("step-arrow");
-    const stepLabel2 = document.getElementById("step-label-2");
-
+    const stepArrow = document.getElementById("step-arrow"), stepLabel2 = document.getElementById("step-label-2");
     if (tipo === "Cliente Externo") {
       ext.classList.add("show");
-      // Documento opcional
-      docReq.style.display = "none";
-      docOpt.style.display = "inline";
-      // Link adicional obligatorio
-      linkOpt.style.display = "none";
-      linkReq.style.display = "inline";
+      docReq.style.display = "none"; docOpt.style.display = "inline";
+      linkOpt.style.display = "none"; linkReq.style.display = "inline";
       linkHint.textContent = "Añade el documento del export";
-      // Botón enviar directo
       btnStep1.textContent = "Enviar solicitud";
       btnStep1.onclick = () => submitForm(true);
-      // Ocultar step 2 en breadcrumb
-      stepArrow.style.display = "none";
-      stepLabel2.style.display = "none";
+      stepArrow.style.display = "none"; stepLabel2.style.display = "none";
     } else {
-      ext.classList.remove("show");
-      resetPlataformaFields();
-      // Documento obligatorio
-      docReq.style.display = "inline";
-      docOpt.style.display = "none";
-      // Link adicional opcional
-      linkOpt.style.display = "inline";
-      linkReq.style.display = "none";
+      ext.classList.remove("show"); resetPlataformaFields();
+      docReq.style.display = "inline"; docOpt.style.display = "none";
+      linkOpt.style.display = "inline"; linkReq.style.display = "none";
       linkHint.textContent = "Si tienes otro documento importante agrégalo aquí";
-      // Botón siguiente
-      btnStep1.textContent = "Siguiente →";
-      btnStep1.onclick = goStep2;
-      // Mostrar step 2 en breadcrumb
-      stepArrow.style.display = "inline";
-      stepLabel2.style.display = "inline";
+      btnStep1.textContent = "Siguiente →"; btnStep1.onclick = handleStep1;
+      stepArrow.style.display = "inline"; stepLabel2.style.display = "inline";
     }
   }
 
   function onPlataformaChange() {
     resetPlataformaFields();
     const plat = document.getElementById("plataforma").value;
-    if (plat === "Sabio") {
-      document.getElementById("field-sabio").style.display = "block";
-    } else if (plat === "Siku") {
-      document.getElementById("field-siku").style.display = "block";
-    }
+    if (plat === "Sabio") document.getElementById("field-sabio").style.display = "block";
+    else if (plat === "Siku") document.getElementById("field-siku").style.display = "block";
   }
 
   function resetPlataformaFields() {
@@ -338,96 +415,35 @@
 
   function validateStep1(isExterno) {
     let valid = true;
-
-    // Agente
-    const agente = document.getElementById("agente");
-    const agenteWrap = document.getElementById("agente-wrap");
-    if (!agente.value.trim()) {
-      agenteWrap.classList.add("error");
-      document.getElementById("err-agente").classList.add("show");
-      valid = false;
-    } else {
-      agenteWrap.classList.remove("error");
-      document.getElementById("err-agente").classList.remove("show");
-    }
-
-    // Tipo
+    const agente = document.getElementById("agente"), agenteWrap = document.getElementById("agente-wrap");
+    if (!agente.value.trim()) { agenteWrap.classList.add("error"); document.getElementById("err-agente").classList.add("show"); valid = false; }
+    else { agenteWrap.classList.remove("error"); document.getElementById("err-agente").classList.remove("show"); }
     const tipo = document.getElementById("tipo");
-    if (!tipo.value) {
-      tipo.classList.add("error");
-      document.getElementById("err-tipo").classList.add("show");
-      valid = false;
-    } else {
-      tipo.classList.remove("error");
-      document.getElementById("err-tipo").classList.remove("show");
-    }
-
-    // Comentarios
+    if (!tipo.value) { tipo.classList.add("error"); document.getElementById("err-tipo").classList.add("show"); valid = false; }
+    else { tipo.classList.remove("error"); document.getElementById("err-tipo").classList.remove("show"); }
     const com = document.getElementById("comentarios");
-    if (!com.value.trim()) {
-      com.classList.add("error");
-      document.getElementById("err-comentarios").classList.add("show");
-      valid = false;
-    } else {
-      com.classList.remove("error");
-      document.getElementById("err-comentarios").classList.remove("show");
-    }
-
+    if (!com.value.trim()) { com.classList.add("error"); document.getElementById("err-comentarios").classList.add("show"); valid = false; }
+    else { com.classList.remove("error"); document.getElementById("err-comentarios").classList.remove("show"); }
     if (isExterno) {
-      // Plataforma
       const plat = document.getElementById("plataforma");
-      if (!plat.value) {
-        plat.classList.add("error");
-        document.getElementById("err-plataforma").classList.add("show");
-        valid = false;
-      } else {
-        plat.classList.remove("error");
-        document.getElementById("err-plataforma").classList.remove("show");
-      }
-
-      // Sabio: link excel obligatorio
+      if (!plat.value) { plat.classList.add("error"); document.getElementById("err-plataforma").classList.add("show"); valid = false; }
+      else { plat.classList.remove("error"); document.getElementById("err-plataforma").classList.remove("show"); }
       if (plat.value === "Sabio") {
         const lx = document.getElementById("link_excel");
-        if (!lx.value.trim()) {
-          lx.classList.add("error");
-          document.getElementById("err-link-excel").classList.add("show");
-          valid = false;
-        } else {
-          lx.classList.remove("error");
-          document.getElementById("err-link-excel").classList.remove("show");
-        }
+        if (!lx.value.trim()) { lx.classList.add("error"); document.getElementById("err-link-excel").classList.add("show"); valid = false; }
+        else { lx.classList.remove("error"); document.getElementById("err-link-excel").classList.remove("show"); }
       }
-
-      // Link adicional obligatorio para Cliente Externo
       const la = document.getElementById("link_adicional");
-      if (!la.value.trim()) {
-        la.classList.add("error");
-        document.getElementById("err-link-adicional").classList.add("show");
-        valid = false;
-      } else {
-        la.classList.remove("error");
-        document.getElementById("err-link-adicional").classList.remove("show");
-      }
-
-      // Documento firmado opcional — no validar checkbox
-
+      if (!la.value.trim()) { la.classList.add("error"); document.getElementById("err-link-adicional").classList.add("show"); valid = false; }
+      else { la.classList.remove("error"); document.getElementById("err-link-adicional").classList.remove("show"); }
     } else {
-      // Documento firmado obligatorio para otros tipos
-      const docCheck = document.getElementById("doc_confirmado");
-      if (!docCheck.checked) {
-        document.getElementById("err-doc").classList.add("show");
-        valid = false;
-      } else {
-        document.getElementById("err-doc").classList.remove("show");
-      }
+      if (!document.getElementById("doc_confirmado").checked) { document.getElementById("err-doc").classList.add("show"); valid = false; }
+      else { document.getElementById("err-doc").classList.remove("show"); }
     }
-
     return valid;
   }
 
-  function handleStep1() {
-    goStep2();
-  }
+  function handleStep1() { goStep2(); }
 
   function goStep2() {
     if (!validateStep1(false)) return;
@@ -447,26 +463,19 @@
   function addRow() {
     rowCount++;
     const tbody = document.getElementById("tabla-body");
-    const tr = document.createElement("tr");
-    tr.id = "row-" + rowCount;
+    const tr = document.createElement("tr"); tr.id = "row-" + rowCount;
     const cols = ["id_org_fuente","id_user","doctor","id_cons_fuente","cons_fuente","id_cons_destino","cons_destino","id_org_destino"];
     const placeholders = ["####","####","Dr. Xxxx","####","Clínica X","####","Clínica X","####"];
     let html = "";
-    cols.forEach((c, i) => {
-      html += `<td><input type="text" name="${c}_${rowCount}" placeholder="${placeholders[i]}"/></td>`;
-    });
-    html += `<td class="td-remove"><button class="btn-remove" onclick="removeRow(${rowCount})" title="Eliminar fila">×</button></td>`;
-    tr.innerHTML = html;
-    tbody.appendChild(tr);
-    updateCount();
+    cols.forEach((c,i) => { html += `<td><input type="text" name="${c}_${rowCount}" placeholder="${placeholders[i]}"/></td>`; });
+    html += `<td class="td-remove"><button class="btn-remove" onclick="removeRow(${rowCount})">×</button></td>`;
+    tr.innerHTML = html; tbody.appendChild(tr); updateCount();
     document.getElementById("err-tabla").classList.remove("show");
   }
 
   function removeRow(id) {
-    const rows = document.querySelectorAll("#tabla-body tr");
-    if (rows.length <= 1) return;
-    document.getElementById("row-" + id).remove();
-    updateCount();
+    if (document.querySelectorAll("#tabla-body tr").length <= 1) return;
+    document.getElementById("row-" + id).remove(); updateCount();
   }
 
   function updateCount() {
@@ -475,14 +484,12 @@
   }
 
   function collectTableData() {
-    const rows = document.querySelectorAll("#tabla-body tr");
     const cols = ["id_org_fuente","id_user","doctor","id_cons_fuente","cons_fuente","id_cons_destino","cons_destino","id_org_destino"];
     const colHeaders = ["ID Organización Fuente","ID User","Doctor","ID Consultorio Fuente","Consultorio Fuente","ID Consultorio Destino","Consultorio Destino","ID Organización Destino"];
     const data = [];
-    rows.forEach(row => {
-      const inputs = row.querySelectorAll("input");
-      const rowObj = {};
-      cols.forEach((c, i) => { rowObj[c] = inputs[i] ? inputs[i].value.trim() : ""; });
+    document.querySelectorAll("#tabla-body tr").forEach(row => {
+      const inputs = row.querySelectorAll("input"), rowObj = {};
+      cols.forEach((c,i) => { rowObj[c] = inputs[i] ? inputs[i].value.trim() : ""; });
       data.push(rowObj);
     });
     let tableWiki = "|| " + colHeaders.join(" || ") + " ||\n";
@@ -491,20 +498,15 @@
   }
 
   async function submitForm(isExterno) {
-    if (isExterno) {
-      if (!validateStep1(true)) return;
-    } else {
-      const rows = document.querySelectorAll("#tabla-body tr");
+    if (isExterno) { if (!validateStep1(true)) return; }
+    else {
       let hasData = false;
-      rows.forEach(r => { r.querySelectorAll("input").forEach(i => { if (i.value.trim()) hasData = true; }); });
+      document.querySelectorAll("#tabla-body tr").forEach(r => { r.querySelectorAll("input").forEach(i => { if (i.value.trim()) hasData = true; }); });
       if (!hasData) { document.getElementById("err-tabla").classList.add("show"); return; }
     }
-
     const btn = isExterno ? document.getElementById("btn-step1") : document.getElementById("btn-submit");
-    btn.disabled = true;
-    btn.textContent = "Enviando...";
+    btn.disabled = true; btn.textContent = "Enviando...";
     if (!isExterno) document.getElementById("err-banner").classList.remove("show");
-
     const agente = document.getElementById("agente").value.trim() + "@huli.io";
     const tipo = document.getElementById("tipo").value;
     const plataforma = isExterno ? document.getElementById("plataforma").value : "";
@@ -514,80 +516,53 @@
     const link_adicional = document.getElementById("link_adicional").value.trim();
     const comentarios = document.getElementById("comentarios").value.trim();
     const fecha = new Date().toLocaleDateString("es-MX");
-
     let tablaData = [], tableWiki = "";
-    if (!isExterno) {
-      const collected = collectTableData();
-      tablaData = collected.data;
-      tableWiki = collected.tableWiki;
-    }
-
+    if (!isExterno) { const c = collectTableData(); tablaData = c.data; tableWiki = c.tableWiki; }
     const payload = {
       agente, tipo, plataforma, api_key, link_excel, doc_firmado, link_adicional, comentarios, fecha,
-      tabla_rows: tablaData,
-      tabla_wiki: tableWiki,
+      tabla_rows: tablaData, tabla_wiki: tableWiki,
       jira_summary: `[${tipo}${plataforma ? ` - ${plataforma}` : ""}] - ${isExterno ? (link_adicional || comentarios.slice(0,40)) : tablaData.map(r => r.cons_destino).filter(Boolean).join(", ")}`,
       jira_description:
         `*Tipo de Importación:* ${tipo}${plataforma ? ` - ${plataforma}` : ""}\n` +
-        `*Agente:* ${agente}\n` +
-        `*Fecha:* ${fecha}\n` +
+        `*Agente:* ${agente}\n*Fecha:* ${fecha}\n` +
         (doc_firmado ? `*Documento firmado:* [Ver carpeta|${doc_firmado}]\n` : "") +
         (link_adicional ? `*Documento del export:* [Ver|${link_adicional}]\n` : "") +
         (link_excel ? `*Link Excel data comprimida:* [Ver|${link_excel}]\n` : "") +
         (api_key ? `\n*Información de API Key:*\n${api_key}\n` : "") +
         `\n*Comentarios:*\n${comentarios}\n` +
-        (!isExterno ? `\n*Tabla de datos:*\n${tableWiki}\n\n{panel:borderStyle=solid|borderColor=#f6ae2d|bgColor=#fffbeb}\n⚠️ No olvide asociar los doctores al ORG destino\n{panel}` : "")
+        (!isExterno ? `\n*Tabla de datos:*\n${tableWiki}\n\n{panel:borderStyle=solid|borderColor=#ffce31|bgColor=#fffbeb}\n⚠️ No olvide asociar los doctores al ORG destino\n{panel}` : "")
     };
-
     try {
       await fetch(ZAPIER_WEBHOOK_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       const n = isExterno ? 0 : document.querySelectorAll("#tabla-body tr").length;
-      document.getElementById("success-meta").textContent = tipo + (plataforma ? ` - ${plataforma}` : "") + " · " + fecha + (!isExterno ? ` · ${n} fila${n !== 1 ? "s" : ""}` : "");
-      if (isExterno) {
-        document.getElementById("step1").classList.remove("active");
-      } else {
-        document.getElementById("step2").classList.remove("active");
-      }
+      document.getElementById("success-meta").textContent = tipo + (plataforma ? ` - ${plataforma}` : "") + " · " + fecha + (!isExterno && n ? ` · ${n} fila${n !== 1 ? "s" : ""}` : "");
+      if (isExterno) document.getElementById("step1").classList.remove("active");
+      else document.getElementById("step2").classList.remove("active");
       document.getElementById("success").classList.add("show");
-    } catch (err) {
+    } catch(err) {
       if (!isExterno) document.getElementById("err-banner").classList.add("show");
-      btn.disabled = false;
-      btn.textContent = isExterno ? "Enviar solicitud" : "Enviar solicitud";
+      btn.disabled = false; btn.textContent = "Enviar solicitud";
     }
   }
 
   function resetForm() {
     document.getElementById("success").classList.remove("show");
     document.getElementById("step1").classList.add("active");
-    document.getElementById("agente").value = "";
-    document.getElementById("tipo").value = "";
+    ["agente","tipo","comentarios","link_adicional"].forEach(id => document.getElementById(id).value = "");
     document.getElementById("cliente-externo-fields").classList.remove("show");
-    document.getElementById("plataforma").value = "";
-    resetPlataformaFields();
+    document.getElementById("plataforma").value = ""; resetPlataformaFields();
     document.getElementById("doc_confirmado").checked = false;
     document.getElementById("err-doc").classList.remove("show");
-    document.getElementById("link_adicional").value = "";
-    document.getElementById("comentarios").value = "";
-    document.getElementById("tabla-body").innerHTML = "";
-    rowCount = 0;
-    addRow();
-    // Reset labels
-    document.getElementById("doc-req").style.display = "inline";
-    document.getElementById("doc-opt").style.display = "none";
-    document.getElementById("link-opt").style.display = "inline";
-    document.getElementById("link-req").style.display = "none";
+    document.getElementById("tabla-body").innerHTML = ""; rowCount = 0; addRow();
+    document.getElementById("doc-req").style.display = "inline"; document.getElementById("doc-opt").style.display = "none";
+    document.getElementById("link-opt").style.display = "inline"; document.getElementById("link-req").style.display = "none";
     document.getElementById("link-hint").textContent = "Si tienes otro documento importante agrégalo aquí";
-    document.getElementById("btn-step1").textContent = "Siguiente →";
-    document.getElementById("btn-step1").onclick = handleStep1;
-    document.getElementById("step-arrow").style.display = "inline";
-    document.getElementById("step-label-2").style.display = "inline";
-    document.getElementById("step-label-1").classList.add("active");
-    document.getElementById("step-label-2").classList.remove("active");
-    document.getElementById("btn-submit").disabled = false;
-    document.getElementById("btn-submit").textContent = "Enviar solicitud";
+    document.getElementById("btn-step1").textContent = "Siguiente →"; document.getElementById("btn-step1").onclick = handleStep1;
+    document.getElementById("step-arrow").style.display = "inline"; document.getElementById("step-label-2").style.display = "inline";
+    document.getElementById("step-label-1").classList.add("active"); document.getElementById("step-label-2").classList.remove("active");
+    document.getElementById("btn-submit").disabled = false; document.getElementById("btn-submit").textContent = "Enviar solicitud";
   }
 
-  // Init
   document.getElementById("btn-step1").onclick = handleStep1;
   addRow();
 </script>
